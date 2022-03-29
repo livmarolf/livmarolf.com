@@ -1,0 +1,39 @@
+:root {
+  --color-elevation-0: #1a1b20;
+  --color-text-primary: #d7d7d7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--color-elevation-0);
+  color: var(--color-text-primary);
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Rajdhani", sans-serif;
+}
+
+h1 {
+  font-size: 128px;
+}
+
+p {
+  line-height: 150%;
+}
