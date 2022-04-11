@@ -1,6 +1,10 @@
 :root {
-  --color-elevation-0: #1a1b20;
-  --color-text-primary: #d7d7d7;
+  --color-elevation-0_rgb: 26, 27, 32;
+  --color-elevation-1_rgb: 34, 35, 40;
+  --color-text-primary_rgb: 215, 215, 215;
+  --color-elevation-0: rgb(var(--color-elevation-0_rgb));
+  --color-elevation-1: rgb(var(--color-elevation-1_rgb));
+  --color-text-primary: rgb(var(--color-text-primary_rgb));
 }
 
 * {

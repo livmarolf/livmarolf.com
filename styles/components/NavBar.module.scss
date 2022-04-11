@@ -1,0 +1,21 @@
+.NavBar {
+  $height: 32px;
+  position: fixed;
+  right: 0;
+  width: 100vh;
+  height: $height;
+  display: grid;
+  grid-template: 1fr / auto 1fr auto;
+  z-index: 99999999999;
+  place-items: center;
+
+  bottom: -$height;
+  transform: rotate(90deg);
+
+  transform-origin: top right;
+  padding: 24px 24px 0 24px;
+
+  span::before {
+    content: "";
+  }
+}

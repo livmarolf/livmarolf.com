@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-function Hexagon({ color, className, ...props }) {
+const Hexagon = ({ color, className, ...props }) => {
   return (
     <motion.svg
       className={className}
@@ -18,6 +18,6 @@ function Hexagon({ color, className, ...props }) {
       />
     </motion.svg>
   );
-}
+};
 
 export { Hexagon };
