@@ -29,4 +29,4 @@ jobs:
         with:
           hosts: "${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}"
           privateKey: ${{ secrets.SERVER_SSH_KEY }}
-          command: /home/liv/.nvm/versions/node/v17.9.0/bin/pm2 restart livmarolf
+          command: pm2 restart livmarolf
