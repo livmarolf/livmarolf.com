@@ -193,7 +193,7 @@ export default function Home({ logos }) {
           </svg>
           <header>
             <span>I AM</span>
-            <h1>Olivia Marolf</h1>
+            <h1 style={{ color: "red" }}>Olivia Marolf</h1>
             <span>▲ WEB DEVELOPER</span>
           </header>
           {/* TODO: fix resizing issue */}
