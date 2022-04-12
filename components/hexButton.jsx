@@ -11,8 +11,8 @@ const hexButton = ({ href, children, ...props }) => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M0 68.9997L40.0001 0H120L160 68.9997L120 138H40.0001L0 68.9997Z"
           fill="#222328"
         />

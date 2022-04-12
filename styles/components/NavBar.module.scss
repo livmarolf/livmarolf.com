@@ -9,13 +9,40 @@
   z-index: 99999999999;
   place-items: center;
 
+  font-size: 16px;
+
   bottom: -$height;
   transform: rotate(90deg);
 
   transform-origin: top right;
   padding: 24px 24px 0 24px;
 
-  span::before {
-    content: "";
+  span:first-child,
+  span:last-child {
+    &::before,
+    &::after {
+      content: "";
+      height: 1px;
+      width: 32px;
+      background: #fff;
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  }
+
+  span:last-child {
+    cursor: pointer;
+  }
+
+  .indicators {
+    display: grid;
+    grid-template: 1fr / repeat(4, 1fr);
+    gap: 16px;
+    > svg {
+      cursor: pointer;
+    }
   }
 }

@@ -9,7 +9,6 @@ function useIntersection() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        console.table(entries);
         const { target } = entries.find((entry) => entry.isIntersecting) ?? {
           target: null,
         };
@@ -21,7 +20,7 @@ function useIntersection() {
       {
         root: null,
         rootMargin: "0px",
-        threshold: 0.1,
+        threshold: 0.5,
       }
     );
 

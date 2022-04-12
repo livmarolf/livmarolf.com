@@ -14,13 +14,8 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 import { useIntersection } from "../hooks/use-intersection";
 import NavBar from "../components/NavBar";
-
-const scrollTo = (className) => {
-  window.scrollTo({
-    top: document.getElementsByClassName(className)[0].offsetTop - 100,
-    behavior: "smooth",
-  });
-};
+import ReCAPTCHA from "react-google-recaptcha";
+import { scrollTo } from "../utils/scroll-to";
 
 const random = (min, max) =>
   min < 0 ? min + Math.random() * (max * 2) : min + Math.random() * max;
@@ -49,6 +44,9 @@ export default function Home({ logos }) {
   const interval = useRef();
   const [tick, doTick] = useState(0);
   const [activeElement, setObserverTargets] = useIntersection();
+  const recaptchaRef = useRef();
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     interval.current = setInterval(() => doTick(++tick), 2 * 1000);
@@ -63,6 +61,31 @@ export default function Home({ logos }) {
 
     setObserverTargets(targets);
   }, [mounted]);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = await recaptchaRef.current.executeAsync();
+
+    const formData = new FormData(e.target);
+
+    formData.set("g-recaptcha-response", token);
+
+    const res = await fetch("/api/email", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    }).then((r) => r.json());
+
+    if (res.success) {
+      setSent(true);
+      setError("");
+    }
+    if (!res.success) {
+      setSent(false);
+      setError(res.message ?? "An error occurred");
+    }
+  };
 
   return (
     <>
@@ -83,14 +106,14 @@ export default function Home({ logos }) {
         <section className={c.intro}>
           <Hexagon
             initial={false}
-            animate={getPositionOffset(100, 40)}
+            animate={getPositionOffset(100, 70)}
             transition={commonSpring}
             className={c.hex1}
             color="#212328"
           />
           <Hexagon
             initial={false}
-            animate={getPositionOffset(100, 60)}
+            animate={getPositionOffset(100, 70)}
             transition={commonSpring}
             className={c.hex2}
             color="#212328"
@@ -497,24 +520,41 @@ export default function Home({ logos }) {
           </div>
           <div className={c.getInTouch}>
             <h2>GET IN TOUCH</h2>
-            <form action="/api/email">
-              <label>
-                <span>NAME</span>
-                <input type="text" name="name" />
-              </label>
-              <label>
-                <span>EMAIL</span>
-                <input type="email" name="email" />
-              </label>
-              <label>
-                <span>PHONE NUMBER</span>
-                <input type="text" name="phoneNumber" />
-              </label>
-              <label>
-                <span>MESSAGE</span>
-                <textarea name="message" />
-              </label>
-            </form>
+            {error && <h3>{error}</h3>}
+            {sent ? (
+              <h3>Message Sent!</h3>
+            ) : (
+              <form action="#" onSubmit={onSubmit}>
+                <label>
+                  <span>NAME</span>
+                  <input required type="text" name="name" />
+                </label>
+                <label>
+                  <span>EMAIL</span>
+                  <input required type="email" name="email" />
+                </label>
+                <label>
+                  <span>PHONE NUMBER</span>
+                  <input required type="text" name="phoneNumber" />
+                </label>
+                <label>
+                  <span>MESSAGE</span>
+                  <textarea required name="message" />
+                </label>
+                <span className={c.recaptcha}>
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    badge="inline"
+                    theme="dark"
+                    size="invisible"
+                    sitekey="6LdMSmcfAAAAAA_qK40slJz0grwG4dXqwrcgXclT"
+                  />
+                </span>
+                <button className={c.submitButton} type="submit" ref={wave}>
+                  SUBMIT
+                </button>
+              </form>
+            )}
           </div>
         </section>
       </main>

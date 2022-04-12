@@ -263,6 +263,7 @@
 
     display: grid;
     grid-template: 1fr / 1fr 1fr;
+    align-items: center;
 
     .contactHex {
       position: absolute;
@@ -344,6 +345,22 @@
         font-size: 18px;
         font-weight: normal;
         font-family: inherit;
+      }
+
+      .recaptcha {
+        float: left;
+        overflow: hidden;
+      }
+
+      .submitButton {
+        display: block;
+        border: 1px solid currentColor;
+        background: transparent;
+        color: inherit;
+        font-size: 16px;
+        cursor: pointer;
+        height: 60px;
+        margin-left: auto;
       }
 
       textarea {
